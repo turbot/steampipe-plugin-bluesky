@@ -2,7 +2,7 @@
 organization: Turbot
 category: ["media"]
 icon_url: "/images/plugins/turbot/twitter.svg"
-brand_color: "#1DA1F2"
+brand_color: "#50b0ff"
 display_name: Bluesky
 name: bluesky
 description: Steampipe plugin to query posts, users and followers from Bluesky.
