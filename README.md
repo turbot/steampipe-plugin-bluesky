@@ -61,7 +61,6 @@ Try it!
 steampipe query
 > .inspect bluesky
 ```
-```
 
 Further reading:
 * [Writing plugins](https://steampipe.io/docs/develop/writing-plugins)
