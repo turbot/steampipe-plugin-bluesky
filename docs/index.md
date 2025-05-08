@@ -1,13 +1,13 @@
 ---
 organization: Turbot
 category: ["media"]
-icon_url: "/images/plugins/turbot/twitter.svg"
+icon_url: "/images/plugins/turbot/bluesky.svg"
 brand_color: "#50b0ff"
 display_name: Bluesky
 name: bluesky
 description: Steampipe plugin to query posts, users and followers from Bluesky.
 og_description: Query Bluesky with SQL! Open source CLI. No DB required.
-og_image: "/images/plugins/turbot/twitter-social-graphic.png"
+og_image: "/images/plugins/turbot/bluesky-social-graphic.png"
 engines: ["steampipe", "sqlite", "postgres", "export"]
 ---
 
