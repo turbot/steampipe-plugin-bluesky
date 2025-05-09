@@ -1,14 +1,14 @@
-.PHONY: build install clean
+.PHONY: build install clean restart test
 
 STEAMPIPE_INSTALL_DIR ?= ~/.steampipe
 BUILD_TAGS = netgo
 install:
 	go build -o $(STEAMPIPE_INSTALL_DIR)/plugins/hub.steampipe.io/plugins/turbot/bluesky@latest/steampipe-plugin-bluesky.plugin -tags "${BUILD_TAGS}" *.go
 
-build:
+localbuild:
 	go build -o build/steampipe-plugin-bluesky.plugin .
 
-localinstall: build
+localinstall: localbuild
 	mkdir -p ~/.steampipe/plugins/local/bluesky
 	cp build/steampipe-plugin-bluesky.plugin ~/.steampipe/plugins/local/bluesky/
 
