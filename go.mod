@@ -1,6 +1,6 @@
 module turbot/steampipe-plugin-bluesky
 
-go 1.24.2
+go 1.23.1
 
 require (
 	github.com/bluesky-social/indigo v0.0.0-20250502010310-b3f9d5764606
