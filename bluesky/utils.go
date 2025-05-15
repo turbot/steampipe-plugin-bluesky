@@ -79,19 +79,6 @@ func connect(ctx context.Context, d *plugin.QueryData) (*xrpc.Client, error) {
 	return c, nil
 }
 
-func isDID(s string) bool {
-	return strings.HasPrefix(s, "did:")
-}
-
-// resolveToDID resolves a handle to a DID using the Bluesky API
-func resolveToDID(ctx context.Context, client *xrpc.Client, handle string) (string, error) {
-	resolved, err := atproto.IdentityResolveHandle(ctx, client, handle)
-	if err != nil {
-		return "", fmt.Errorf("failed to resolve handle: %v", err)
-	}
-	return resolved.Did, nil
-}
-
 // resolveDIDsToHandles resolves a list of DIDs to their corresponding handles
 func resolveDIDsToHandles(ctx context.Context, client *xrpc.Client, dids []string) []string {
 	handles := make([]string, 0, len(dids))
@@ -207,18 +194,6 @@ func userColumns(optionalCols ...string) []*plugin.Column {
 		}
 	}
 	return cols
-}
-
-func targetDidString(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	quals := d.EqualsQuals
-	did := quals["target_did"].GetStringValue()
-	return did, nil
-}
-
-func didString(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
-	quals := d.EqualsQuals
-	did := quals["did"].GetStringValue()
-	return did, nil
 }
 
 // Helper functions for safe dereferencing
