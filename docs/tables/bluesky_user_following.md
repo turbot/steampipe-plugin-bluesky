@@ -1,27 +1,30 @@
 ---
 title: "Steampipe Table: bluesky_user_following - Query Bluesky User Following using SQL"
-description: "Allows users to query the list of users that a specific Bluesky user follows, providing insights into following relationships and user profiles."
+description: "Allows users to query accounts that a Bluesky user is following, providing insights into following profiles, engagement metrics, and relationship details."
+folder: "Following"
 ---
 
 # Table: bluesky_user_following - Query Bluesky User Following using SQL
 
-Bluesky is a decentralized social network protocol that allows users to create and share content. The `bluesky_user_following` table provides access to the list of users that a specific Bluesky user follows, including profile information and relationship details.
+Bluesky is a decentralized social network protocol that allows users to create and share content. The `bluesky_user_following` table provides access to the accounts that a specific Bluesky user is following, including profile information, engagement metrics, and relationship details.
 
 ## Table Usage Guide
 
-The `bluesky_user_following` table provides insights into the users that a specific Bluesky user follows. As a data analyst or social media manager, explore following-specific details through this table, including profile information, engagement metrics, and relationship data. Utilize it to uncover information about following patterns, user connections, and network analysis.
+The `bluesky_user_following` table provides insights into the accounts that a specific Bluesky user is following. As a data analyst or social media manager, explore following-specific details through this table, including profile information, engagement metrics, and relationship details. Utilize it to uncover information about following demographics, engagement patterns, and network growth.
 
 **Important Notes**
-- Either `target_did` or `handle` must be specified in the `where` clause.
-- If using `target_did`, it must be in the format `did:plc:...` or `did:web:...`
-- If using `handle`, it can be provided with or without the `@` prefix
+
+- The `did` field must be set in the `where` clause
+- The DID must be in the format `did:plc:...` or `did:web:...`
+- To query by handle, use a join with the `bluesky_user` table
+- The table provides comprehensive following profile information including engagement metrics and media URLs
 
 ## Examples
 
-### Get all following by DID
-List all users that a specific user follows using their DID.
+### Get all accounts a user is following
+List all accounts that a specific user is following, including their profile information.
 
-```sql
+```sql+postgres
 select
   did,
   handle,
@@ -33,13 +36,10 @@ select
 from
   bluesky_user_following
 where
-  target_did = 'did:plc:vipregezugaizr3kfcjijzrv';
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
 ```
 
-### Get all following by handle
-List all users that a specific user follows using their handle.
-
-```sql
+```sql+sqlite
 select
   did,
   handle,
@@ -51,15 +51,14 @@ select
 from
   bluesky_user_following
 where
-  handle = 'matty.wtf';
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
 ```
 
-### Get following with high follower counts
-Find followed users who have a significant number of followers.
+### Get following with high engagement
+Find accounts the user is following who have a significant number of followers, indicating potential influence.
 
-```sql
+```sql+postgres
 select
-  did,
   handle,
   display_name,
   follower_count,
@@ -68,40 +67,55 @@ select
 from
   bluesky_user_following
 where
-  handle = 'matty.wtf'
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
   and follower_count > 1000;
 ```
 
-### Get following with specific keywords in description
-Find followed users whose descriptions contain specific keywords.
-
-```sql
+```sql+sqlite
 select
-  did,
   handle,
   display_name,
-  description
+  follower_count,
+  following_count,
+  post_count
 from
   bluesky_user_following
 where
-  handle = 'matty.wtf'
-  and description ilike '%developer%';
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and follower_count > 1000;
 ```
 
-### Get following with profile images
-Find followed users who have both an avatar and banner image.
+### Get following by handle
+Look up accounts a user is following by their handle instead of DID.
 
-```sql
+```sql+postgres
 select
-  did,
-  handle,
-  display_name,
-  avatar,
-  banner
+  f.did,
+  f.handle,
+  f.display_name,
+  f.description,
+  f.follower_count,
+  f.following_count,
+  f.post_count
 from
-  bluesky_user_following
+  bluesky_user_following f
+  join bluesky_user u on f.did = u.did
 where
-  handle = 'matty.wtf'
-  and avatar is not null
-  and banner is not null;
+  u.handle = 'matty.wtf';
+```
+
+```sql+sqlite
+select
+  f.did,
+  f.handle,
+  f.display_name,
+  f.description,
+  f.follower_count,
+  f.following_count,
+  f.post_count
+from
+  bluesky_user_following f
+  join bluesky_user u on f.did = u.did
+where
+  u.handle = 'matty.wtf';
 ``` 
