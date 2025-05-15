@@ -11,7 +11,7 @@ assignees: ''
 A clear and concise description of what the bug is.
 
 **Steampipe version (`steampipe -v`)**
-Example: v0.3.0
+Example: v0.13.6
 
 **Plugin version (`steampipe plugin list`)**
 Example: v0.5.0
