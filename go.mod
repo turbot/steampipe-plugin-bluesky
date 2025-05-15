@@ -1,4 +1,4 @@
-module turbot/steampipe-plugin-bluesky
+module github.com/turbot/steampipe-plugin-bluesky
 
 go 1.23.1
 
