@@ -103,26 +103,6 @@ func convertToAtURI(ctx context.Context, client *xrpc.Client, uri string) (strin
 	return "", fmt.Errorf("unsupported URI format")
 }
 
-func getTestPost() map[string]interface{} {
-	return map[string]interface{}{
-		"uri":                "at://did:plc:test123/app.bsky.feed.post/test456",
-		"cid":                "bafyreiabcdefghijklmnopqrstuvwxyz",
-		"author":             "test.bsky.social",
-		"text":               "This is a test post",
-		"reply_root":         "",
-		"reply_parent":       "",
-		"created_at":         "2024-03-14T12:00:00.000Z",
-		"indexed_at":         "2024-03-14T12:00:01.000Z",
-		"like_count":         int64(42),
-		"repost_count":       int64(7),
-		"has_external_links": false,
-		"image_count":        int64(0),
-		"hashtags":           []string{"test", "steampipe"},
-		"mentioned_handles":  []string{},
-		"external_links":     []string{},
-	}
-}
-
 func listPost(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	logger := plugin.Logger(ctx)
 
