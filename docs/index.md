@@ -80,12 +80,12 @@ connection "bluesky" {
   plugin = "bluesky"
   
   # Required: Your Bluesky handle (e.g., user.bsky.social)
-  handle = "your.handle.bsky.social"
+  # handle = "your.handle.bsky.social"
   
   # Required: Your Bluesky app password
-  app_password = "your-app-password"
+  # app_password = "your-app-password"
   
   # Optional: Custom PDS host (defaults to https://bsky.social)
-  pds_host = "https://bsky.social"
+  # pds_host = "https://bsky.social"
 }
 ```
