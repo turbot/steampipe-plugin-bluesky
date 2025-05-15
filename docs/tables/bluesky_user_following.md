@@ -24,7 +24,22 @@ The `bluesky_user_following` table provides insights into the accounts that a sp
 ### Get all accounts a user is following
 List all accounts that a specific user is following, including their profile information.
 
-```sql
+```sql+postgres
+select
+  did,
+  handle,
+  display_name,
+  description,
+  follower_count,
+  following_count,
+  post_count
+from
+  bluesky_user_following
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   did,
   handle,
@@ -42,7 +57,21 @@ where
 ### Get following with high engagement
 Find accounts the user is following who have a significant number of followers, indicating potential influence.
 
-```sql
+```sql+postgres
+select
+  handle,
+  display_name,
+  follower_count,
+  following_count,
+  post_count
+from
+  bluesky_user_following
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and follower_count > 1000;
+```
+
+```sql+sqlite
 select
   handle,
   display_name,
@@ -59,7 +88,23 @@ where
 ### Get following by handle
 Look up accounts a user is following by their handle instead of DID.
 
-```sql
+```sql+postgres
+select
+  f.did,
+  f.handle,
+  f.display_name,
+  f.description,
+  f.follower_count,
+  f.following_count,
+  f.post_count
+from
+  bluesky_user_following f
+  join bluesky_user u on f.did = u.did
+where
+  u.handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   f.did,
   f.handle,

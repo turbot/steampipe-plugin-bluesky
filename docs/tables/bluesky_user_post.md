@@ -24,7 +24,22 @@ The `bluesky_user_post` table provides insights into posts by a specific Bluesky
 ### Get all posts by a user
 List all posts by a specific user, including the post content and engagement metrics.
 
-```sql
+```sql+postgres
+select
+  uri,
+  cid,
+  text,
+  created_at,
+  like_count,
+  repost_count,
+  reply_count
+from
+  bluesky_user_post
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   uri,
   cid,
@@ -42,7 +57,22 @@ where
 ### Get posts with high engagement
 Find posts that have received significant engagement through likes and reposts.
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  created_at,
+  like_count,
+  repost_count,
+  reply_count
+from
+  bluesky_user_post
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and (like_count > 100 or repost_count > 50);
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -60,7 +90,22 @@ where
 ### Get posts by handle
 Look up posts by a user by their handle instead of DID.
 
-```sql
+```sql+postgres
+select
+  p.uri,
+  p.text,
+  p.created_at,
+  p.like_count,
+  p.repost_count,
+  p.reply_count
+from
+  bluesky_user_post p
+  join bluesky_user u on p.did = u.did
+where
+  u.handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   p.uri,
   p.text,

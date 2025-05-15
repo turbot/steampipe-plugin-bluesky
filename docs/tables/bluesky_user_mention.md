@@ -24,7 +24,22 @@ The `bluesky_user_mention` table provides insights into mentions of a specific B
 ### Get all mentions of a user
 List all mentions of a specific user, including the mention content and engagement metrics.
 
-```sql
+```sql+postgres
+select
+  uri,
+  cid,
+  text,
+  created_at,
+  like_count,
+  repost_count,
+  reply_count
+from
+  bluesky_user_mention
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   uri,
   cid,
@@ -42,7 +57,22 @@ where
 ### Get mentions with high engagement
 Find mentions that have received significant engagement through likes and reposts.
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  created_at,
+  like_count,
+  repost_count,
+  reply_count
+from
+  bluesky_user_mention
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and (like_count > 100 or repost_count > 50);
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -60,7 +90,22 @@ where
 ### Get mentions by handle
 Look up mentions of a user by their handle instead of DID.
 
-```sql
+```sql+postgres
+select
+  m.uri,
+  m.text,
+  m.created_at,
+  m.like_count,
+  m.repost_count,
+  m.reply_count
+from
+  bluesky_user_mention m
+  join bluesky_user u on m.did = u.did
+where
+  u.handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   m.uri,
   m.text,

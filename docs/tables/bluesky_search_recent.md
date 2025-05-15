@@ -32,7 +32,21 @@ The `bluesky_search_recent` table provides insights into recent posts on Bluesky
 
 ### Basic search with default limit
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_search_recent
+where
+  query = 'steampipe';
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -48,7 +62,22 @@ where
 
 ### Search with custom limit
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_search_recent
+where
+  query = 'steampipe'
+  and limit = 50;
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -65,7 +94,21 @@ where
 
 ### Search for posts with hashtags
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  author,
+  created_at,
+  hashtags
+from
+  bluesky_search_recent
+where
+  query = '#steampipe'
+  and limit = 200;
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -81,7 +124,21 @@ where
 
 ### Search for posts mentioning a user
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  author,
+  created_at,
+  mentioned_handles
+from
+  bluesky_search_recent
+where
+  query = '@mattstratton'
+  and limit = 100;
+```
+
+```sql+sqlite
 select
   uri,
   text,
@@ -97,7 +154,7 @@ where
 
 ### Get posts with high engagement
 
-```sql
+```sql+postgres
 select
   uri,
   text,
@@ -114,18 +171,43 @@ order by
   like_count desc;
 ```
 
-## Important Notes
-
-- The `query` parameter is required and must be specified in the `where` clause
-- Results are limited to 100 by default
-- You can change the limit using the `limit` parameter
-- The search is case-insensitive
-- Results are returned in reverse chronological order (newest first)
+```sql+sqlite
+select
+  uri,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_search_recent
+where
+  query = 'steampipe'
+  and limit = 100
+order by
+  like_count desc;
+```
 
 ### Search for posts containing a specific hashtag
 Find recent posts that contain a specific hashtag.
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count,
+  hashtags
+from
+  bluesky_search_recent
+where
+  query = '#steampipe';
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -144,7 +226,23 @@ where
 ### Search for posts mentioning a user
 Find recent posts that mention a specific user.
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count,
+  mentioned_handles_names
+from
+  bluesky_search_recent
+where
+  query = '@matty.wtf';
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -163,7 +261,22 @@ where
 ### Search for posts with external links
 Find recent posts that contain external links.
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  external_links
+from
+  bluesky_search_recent
+where
+  query = '#steampipe'
+  and has_external_links = true;
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -181,7 +294,22 @@ where
 ### Search for posts with images
 Find recent posts that contain images.
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  image_count
+from
+  bluesky_search_recent
+where
+  query = '#steampipe'
+  and image_count > 0;
+```
+
+```sql+sqlite
 select
   uri,
   http_url,

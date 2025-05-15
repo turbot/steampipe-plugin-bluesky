@@ -25,7 +25,22 @@ The `bluesky_user_follower` table provides insights into the followers of a spec
 ### Get all followers of a user
 List all followers of a specific user, including their profile information.
 
-```sql
+```sql+postgres
+select
+  did,
+  handle,
+  display_name,
+  description,
+  follower_count,
+  following_count,
+  post_count
+from
+  bluesky_user_follower
+where
+  target_did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   did,
   handle,
@@ -43,7 +58,21 @@ where
 ### Get followers with high engagement
 Find followers who have a significant number of followers themselves, indicating potential influence.
 
-```sql
+```sql+postgres
+select
+  handle,
+  display_name,
+  follower_count,
+  following_count,
+  post_count
+from
+  bluesky_user_follower
+where
+  target_did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and follower_count > 1000;
+```
+
+```sql+sqlite
 select
   handle,
   display_name,
@@ -60,7 +89,23 @@ where
 ### Get followers by handle
 Look up followers of a user by their handle instead of DID.
 
-```sql
+```sql+postgres
+select
+  f.did,
+  f.handle,
+  f.display_name,
+  f.description,
+  f.follower_count,
+  f.following_count,
+  f.post_count
+from
+  bluesky_user_follower f
+  join bluesky_user u on f.target_did = u.did
+where
+  u.handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   f.did,
   f.handle,
@@ -79,7 +124,19 @@ where
 ### Get follower profile media
 Retrieve profile media (avatar and banner) for all followers of a user.
 
-```sql
+```sql+postgres
+select
+  handle,
+  display_name,
+  avatar,
+  banner
+from
+  bluesky_user_follower
+where
+  target_did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   handle,
   display_name,

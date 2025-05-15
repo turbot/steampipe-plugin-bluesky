@@ -24,7 +24,24 @@ The `bluesky_user` table provides insights into Bluesky user profiles. As a data
 ### Get user profile information by DID
 Look up a specific user's profile information using their DID.
 
-```sql
+```sql+postgres
+select
+  did,
+  handle,
+  display_name,
+  description,
+  follower_count,
+  following_count,
+  post_count,
+  avatar,
+  banner
+from
+  bluesky_user
+where
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
+```
+
+```sql+sqlite
 select
   did,
   handle,
@@ -44,7 +61,24 @@ where
 ### Get user profile information by handle
 Look up a specific user's profile information using their handle.
 
-```sql
+```sql+postgres
+select
+  did,
+  handle,
+  display_name,
+  description,
+  follower_count,
+  following_count,
+  post_count,
+  avatar,
+  banner
+from
+  bluesky_user
+where
+  handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   did,
   handle,
@@ -64,7 +98,20 @@ where
 ### Get user engagement metrics
 Analyze a user's engagement metrics, including follower count, following count, and post count.
 
-```sql
+```sql+postgres
+select
+  handle,
+  display_name,
+  follower_count,
+  following_count,
+  post_count
+from
+  bluesky_user
+where
+  handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   handle,
   display_name,
@@ -80,7 +127,19 @@ where
 ### Get user profile media
 Retrieve a user's profile media, including avatar and banner images.
 
-```sql
+```sql+postgres
+select
+  handle,
+  display_name,
+  avatar,
+  banner
+from
+  bluesky_user
+where
+  handle = 'matty.wtf';
+```
+
+```sql+sqlite
 select
   handle,
   display_name,

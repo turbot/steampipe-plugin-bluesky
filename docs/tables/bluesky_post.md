@@ -26,7 +26,22 @@ The `bluesky_post` table in Steampipe provides a comprehensive view of individua
 
 ### Look up a post by URI
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_post
+where
+  uri = 'at://did:plc:example/app.bsky.feed.post/3k2m6q5dpl42g';
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -43,7 +58,22 @@ where
 
 ### Look up a post by HTTP URL (using handle)
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_post
+where
+  http_url = 'https://bsky.app/profile/example.bsky.social/post/3k2m6q5dpl42g';
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -60,7 +90,22 @@ where
 
 ### Look up a post by HTTP URL (using DID)
 
-```sql
+```sql+postgres
+select
+  uri,
+  http_url,
+  text,
+  author,
+  created_at,
+  like_count,
+  repost_count
+from
+  bluesky_post
+where
+  http_url = 'https://bsky.app/profile/did:plc:example/post/3k2m6q5dpl42g';
+```
+
+```sql+sqlite
 select
   uri,
   http_url,
@@ -77,7 +122,23 @@ where
 
 ### Get post metadata
 
-```sql
+```sql+postgres
+select
+  uri,
+  text,
+  hashtags,
+  mentioned_handles,
+  mentioned_handles_names,
+  external_links,
+  has_external_links,
+  image_count
+from
+  bluesky_post
+where
+  uri = 'at://did:plc:example/app.bsky.feed.post/3k2m6q5dpl42g';
+```
+
+```sql+sqlite
 select
   uri,
   text,
