@@ -1,7 +1,7 @@
 package main
 
 import (
-	"turbot/steampipe-plugin-bluesky/bluesky"
+	"github.com/turbot/steampipe-plugin-bluesky/bluesky"
 
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
