@@ -13,7 +13,6 @@ Bluesky is a decentralized social network protocol that allows users to create a
 The `bluesky_user` table provides insights into Bluesky user profiles. As a data analyst or social media manager, explore user-specific details through this table, including profile information, engagement metrics, and account details. Utilize it to uncover information about user activity, influence, and engagement patterns.
 
 **Important Notes**
-
 - Either `did` or `handle` must be specified in the `where` clause
 - If using `did`, it must be in the format `did:plc:...` or `did:web:...`
 - If using `handle`, it can be provided with or without the `@` prefix

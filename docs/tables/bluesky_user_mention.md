@@ -13,7 +13,6 @@ Bluesky is a decentralized social network protocol that allows users to create a
 The `bluesky_user_mention` table provides insights into mentions of a specific Bluesky user. As a data analyst or social media manager, explore mention-specific details through this table, including content information, engagement metrics, and relationship details. Utilize it to uncover information about mention patterns, engagement trends, and network interactions.
 
 **Important Notes**
-
 - The `did` field must be set in the `where` clause
 - The DID must be in the format `did:plc:...` or `did:web:...`
 - To query by handle, use a join with the `bluesky_user` table

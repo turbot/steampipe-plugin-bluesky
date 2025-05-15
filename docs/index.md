@@ -26,7 +26,7 @@ select
 from
   bluesky_search_recent
 where
-  query = '#tailpipe'
+  query = '#tailpipe';
 ```
 
 ```

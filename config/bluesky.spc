@@ -6,4 +6,6 @@ connection "bluesky" {
   # Your Bluesky App Password
   # Can also be set with environment variable BLUESKY_APP_PASSWORD
   # app_password = "XXXX-XXXX-XXXX-XXXX"
+  # Optional: Custom PDS host (defaults to https://bsky.social)
+  # pds_host = "https://bsky.social"
 }

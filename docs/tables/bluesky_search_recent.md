@@ -12,13 +12,6 @@ Bluesky is a decentralized social network protocol that allows users to create a
 
 The `bluesky_search_recent` table provides insights into recent posts on Bluesky. As a data analyst or social media manager, explore post-specific details through this table, including content, engagement metrics, and metadata. Utilize it to uncover information about trending topics, engagement patterns, and user interactions.
 
-### Key Columns
-
-| Column | Type | Description |
-|--------|------|-------------|
-| query | string | The search query to find posts (required) |
-| limit | int | The maximum number of results to return (optional, defaults to 100) |
-
 **Important Notes**
 
 - The search query is required and must be specified in the `where` clause

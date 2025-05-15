@@ -13,7 +13,6 @@ Bluesky is a decentralized social network protocol that allows users to create a
 The `bluesky_post` table in Steampipe provides a comprehensive view of individual Bluesky posts, allowing you to query and analyze post content, engagement metrics, and metadata.
 
 **Important Notes**
-
 - You must specify either the `uri` or `http_url` in the `where` clause
 - The `uri` should be in the format `at://did:plc:example/app.bsky.feed.post/postid`
 - The `http_url` can be in either of these formats:
@@ -25,6 +24,7 @@ The `bluesky_post` table in Steampipe provides a comprehensive view of individua
 ## Examples
 
 ### Look up a post by URI
+Find a specific post using its unique URI identifier.
 
 ```sql+postgres
 select
@@ -57,6 +57,7 @@ where
 ```
 
 ### Look up a post by HTTP URL (using handle)
+Find a post using its web URL with the author's handle.
 
 ```sql+postgres
 select
@@ -89,6 +90,7 @@ where
 ```
 
 ### Look up a post by HTTP URL (using DID)
+Find a post using its web URL with the author's DID (Decentralized Identifier).
 
 ```sql+postgres
 select
@@ -121,6 +123,7 @@ where
 ```
 
 ### Get post metadata
+Retrieve detailed metadata about a post, including hashtags, mentions, and external links.
 
 ```sql+postgres
 select
