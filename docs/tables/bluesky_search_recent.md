@@ -1,27 +1,32 @@
 ---
 title: "Steampipe Table: bluesky_search_recent - Query Bluesky Posts using SQL"
 description: "Allows users to search for recent posts on Bluesky, with configurable result limits."
+folder: "Search Recent"
 ---
 
-# Table: bluesky_search_recent
+# Table: bluesky_search_recent - Query Bluesky Posts using SQL
 
-Search for recent posts on Bluesky. Results are limited to 100 by default, but can be changed using the limit parameter.
+Bluesky is a decentralized social network protocol that allows users to create and share content. The `bluesky_search_recent` table provides access to recent posts on Bluesky, including search results with configurable limits and comprehensive post details.
 
-## Usage
+## Table Usage Guide
 
-This table is useful for:
-- Searching for posts containing specific text, hashtags, or mentions
-- Getting recent posts with engagement metrics
-- Analyzing post content and metadata
-- Finding posts by specific users
+The `bluesky_search_recent` table provides insights into recent posts on Bluesky. As a data analyst or social media manager, explore post-specific details through this table, including content, engagement metrics, and metadata. Utilize it to uncover information about trending topics, engagement patterns, and user interactions.
 
-## Important Notes
+### Key Columns
 
-- The `query` parameter is required and must be specified in the `where` clause
-- Results are limited to 100 by default
-- You can change the limit using the `limit` parameter
+| Column | Type | Description |
+|--------|------|-------------|
+| query | string | The search query to find posts (required) |
+| limit | int | The maximum number of results to return (optional, defaults to 100) |
+
+**Important Notes**
+
+- The search query is required and must be specified in the `where` clause
+- The search API returns posts from the last 7 days
+- Results are paginated and will automatically fetch additional pages as needed
 - The search is case-insensitive
-- Results are returned in reverse chronological order (newest first)
+- You can use hashtags (e.g., `#steampipe`) and mentions (e.g., `@matty.wtf`) in your search query
+- The table includes metadata about the post such as hashtags, mentions, and external links
 
 ## Examples
 
@@ -109,52 +114,13 @@ order by
   like_count desc;
 ```
 
-## Schema
+## Important Notes
 
-| Column | Type | Description |
-|--------|------|-------------|
-| uri | string | The URI of the post |
-| http_url | string | The HTTP URL for the post on bsky.app |
-| cid | string | The CID of the post |
-| author | string | The handle of the post author |
-| text | string | The text content of the post |
-| reply_root | string | The URI of the root post if this is a reply |
-| reply_parent | string | The URI of the parent post if this is a reply |
-| created_at | string | When the post was created |
-| indexed_at | string | When the post was indexed |
-| like_count | int | Number of likes on the post |
-| repost_count | int | Number of reposts of the post |
-| has_external_links | bool | Whether the post contains external links |
-| image_count | int | Number of images in the post |
-| hashtags | json | List of hashtags in the post |
-| mentioned_handles | json | List of handles mentioned in the post |
-| mentioned_handles_names | json | List of handle names (not DIDs) mentioned in the post |
-| external_links | json | List of external links in the post |
-| query | string | The search query used to find this post |
-
-## Key Columns
-
-| Column | Type | Description |
-|--------|------|-------------|
-| query | string | The search query to find posts (required) |
-
-## Notes
-
-- The search query is required and must be specified in the `where` clause.
-- The search API returns posts from the last 7 days.
-- Results are paginated and will automatically fetch additional pages as needed.
-- The search is case-insensitive.
-- You can use hashtags (e.g., `#steampipe`) and mentions (e.g., `@mattstratton`) in your search query.
-- The table includes metadata about the post such as hashtags, mentions, and external links.
-
-## Table Usage Guide
-
-The `bluesky_search_recent` table provides insights into recent posts on Bluesky. As a data analyst or social media manager, explore post-specific details through this table, including content, engagement metrics, and metadata. Utilize it to uncover information about trending topics, engagement patterns, and user interactions.
-
-**Important Notes**
-- The `query` field must be specified in the `where` clause.
-- The search query can include hashtags, mentions, or plain text.
-- Results are returned in reverse chronological order (newest first).
+- The `query` parameter is required and must be specified in the `where` clause
+- Results are limited to 100 by default
+- You can change the limit using the `limit` parameter
+- The search is case-insensitive
+- Results are returned in reverse chronological order (newest first)
 
 ### Search for posts containing a specific hashtag
 Find recent posts that contain a specific hashtag.

@@ -1,6 +1,7 @@
 ---
 title: "Steampipe Table: bluesky_user_follower - Query Bluesky User Followers using SQL"
 description: "Allows users to query followers of a Bluesky user, providing insights into follower profiles, engagement metrics, and relationship details."
+folder: "Followers"
 ---
 
 # Table: bluesky_user_follower - Query Bluesky User Followers using SQL
@@ -11,9 +12,13 @@ Bluesky is a decentralized social network protocol that allows users to create a
 
 The `bluesky_user_follower` table provides insights into the followers of a specific Bluesky user. As a data analyst or social media manager, explore follower-specific details through this table, including profile information, engagement metrics, and relationship details. Utilize it to uncover information about follower demographics, engagement patterns, and network growth.
 
+
 **Important Notes**
-- The `target_did` field must be set in the `where` clause.
+
+- The `target_did` field must be set in the `where` clause
 - The DID must be in the format `did:plc:...` or `did:web:...`
+- To query by handle, use a join with the `bluesky_user` table
+- The table provides comprehensive follower profile information including engagement metrics and media URLs
 
 ## Examples
 
@@ -60,10 +65,13 @@ select
   f.did,
   f.handle,
   f.display_name,
-  f.description
+  f.description,
+  f.follower_count,
+  f.following_count,
+  f.post_count
 from
-  bluesky_user_follower as f
-  join bluesky_user as u on f.target_did = u.did
+  bluesky_user_follower f
+  join bluesky_user u on f.target_did = u.did
 where
   u.handle = 'matty.wtf';
 ```

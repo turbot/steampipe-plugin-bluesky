@@ -1,65 +1,46 @@
 ---
 title: "Steampipe Table: bluesky_user_post - Query Bluesky User Posts using SQL"
-description: "Allows users to query posts published by a specific Bluesky user, providing insights into post content, engagement metrics, and metadata."
+description: "Allows users to query posts by a Bluesky user, providing insights into post content, engagement metrics, and relationship details."
+folder: "User Post"
 ---
 
 # Table: bluesky_user_post - Query Bluesky User Posts using SQL
 
-Bluesky is a decentralized social network protocol that allows users to create and share content. The `bluesky_user_post` table provides access to posts published by a specific Bluesky user, including post content, engagement metrics, and metadata.
+Bluesky is a decentralized social network protocol that allows users to create and share content. The `bluesky_user_post` table provides access to posts by a specific Bluesky user, including post content, engagement metrics, and relationship details.
 
 ## Table Usage Guide
 
-The `bluesky_user_post` table provides insights into posts published by a specific Bluesky user. As a data analyst or social media manager, explore post-specific details through this table, including content, engagement metrics, and metadata. Utilize it to uncover information about posting patterns, engagement rates, and the impact of specific posts.
+The `bluesky_user_post` table provides insights into posts by a specific Bluesky user. As a data analyst or social media manager, explore post-specific details through this table, including content information, engagement metrics, and relationship details. Utilize it to uncover information about post patterns, engagement trends, and network interactions.
 
 **Important Notes**
-- Either `target_did` or `handle` must be specified in the `where` clause.
-- If using `target_did`, it must be in the format `did:plc:...` or `did:web:...`
-- If using `handle`, it can be provided with or without the `@` prefix
+
+- The `did` field must be set in the `where` clause
+- The DID must be in the format `did:plc:...` or `did:web:...`
+- To query by handle, use a join with the `bluesky_user` table
+- The table provides comprehensive post information including content, engagement metrics, and media URLs
 
 ## Examples
 
-### Get all posts by DID
-List all posts published by a specific user using their DID.
+### Get all posts by a user
+List all posts by a specific user, including the post content and engagement metrics.
 
 ```sql
 select
   uri,
+  cid,
   text,
-  author,
   created_at,
   like_count,
   repost_count,
-  hashtags,
-  mentioned_handles_names,
-  external_links
+  reply_count
 from
   bluesky_user_post
 where
-  target_did = 'did:plc:vipregezugaizr3kfcjijzrv';
-```
-
-### Get all posts by handle
-List all posts published by a specific user using their handle.
-
-```sql
-select
-  uri,
-  text,
-  author,
-  created_at,
-  like_count,
-  repost_count,
-  hashtags,
-  mentioned_handles_names,
-  external_links
-from
-  bluesky_user_post
-where
-  handle = 'matty.wtf';
+  did = 'did:plc:vipregezugaizr3kfcjijzrv';
 ```
 
 ### Get posts with high engagement
-Find posts that have received significant engagement (likes and reposts).
+Find posts that have received significant engagement through likes and reposts.
 
 ```sql
 select
@@ -67,26 +48,29 @@ select
   text,
   created_at,
   like_count,
-  repost_count
+  repost_count,
+  reply_count
 from
   bluesky_user_post
 where
-  handle = 'matty.wtf'
-  and like_count > 100;
+  did = 'did:plc:vipregezugaizr3kfcjijzrv'
+  and (like_count > 100 or repost_count > 50);
 ```
 
-### Get posts with hashtags
-Find posts that contain specific hashtags.
+### Get posts by handle
+Look up posts by a user by their handle instead of DID.
 
 ```sql
 select
-  uri,
-  text,
-  created_at,
-  hashtags
+  p.uri,
+  p.text,
+  p.created_at,
+  p.like_count,
+  p.repost_count,
+  p.reply_count
 from
-  bluesky_user_post
+  bluesky_user_post p
+  join bluesky_user u on p.did = u.did
 where
-  handle = 'matty.wtf'
-  and hashtags is not null;
+  u.handle = 'matty.wtf';
 ``` 
