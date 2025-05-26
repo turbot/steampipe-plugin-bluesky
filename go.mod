@@ -4,7 +4,7 @@ go 1.23.1
 
 require (
 	github.com/bluesky-social/indigo v0.0.0-20250502010310-b3f9d5764606
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.5
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.11.6
 )
 
 require (
