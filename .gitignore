@@ -39,3 +39,4 @@ build/
 
 # reference directory
 reference/
+.DS_Store
