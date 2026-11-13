@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/bluesky-social/indigo/api/bsky"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin/transform"
 )
 
 func tableBlueskyUserFollower(ctx context.Context) *plugin.Table {
