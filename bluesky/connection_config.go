@@ -3,7 +3,7 @@ package bluesky
 import (
 	"fmt"
 
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
+	"github.com/turbot/steampipe-plugin-sdk/v6/plugin"
 )
 
 type blueskyConfig struct {
@@ -18,11 +18,11 @@ func ConfigInstance() interface{} {
 
 // GetConfig :: retrieve and cast connection config from query data
 func GetConfig(connection *plugin.Connection) (blueskyConfig, error) {
-	if connection == nil || connection.Config == nil {
+	if connection == nil || connection.GetConfig() == nil {
 		return blueskyConfig{}, fmt.Errorf("connection config is nil")
 	}
 
-	config, ok := connection.Config.(blueskyConfig)
+	config, ok := connection.GetConfig().(blueskyConfig)
 	if !ok {
 		return blueskyConfig{}, fmt.Errorf("unable to cast connection config to blueskyConfig")
 	}
